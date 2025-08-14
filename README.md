@@ -1,237 +1,182 @@
 # CodeTech - Interactive Learning Platform
 
-A modern, interactive learning platform built with Next.js, FastAPI, and SQLite. Features quiz-based learning and progress tracking.
+CodeTech is a comprehensive learning platform designed to enhance theoretical knowledge acquisition for technical students. The platform offers interactive quizzes across various subjects, helping users build strong foundations in programming and related fields.
 
-## 🚀 Features
+## Table of Contents
 
-### For Students
-- **Interactive Quizzes**: Take quizzes on various programming subjects
-- **Progress Tracking**: Monitor your learning progress across subjects
-- **Leaderboard**: Compete with other students
-- **Personal Dashboard**: View your stats, recent activity, and achievements
-- **Subject-based Learning**: Structured learning paths for different programming languages
+- [Project Overview](#project-overview)
+- [Frontend](#frontend)
+  - [Structure](#frontend-structure)
+  - [Features](#frontend-features)
+- [Backend](#backend)
+  - [Structure](#backend-structure)
+  - [API Endpoints](#api-endpoints)
+- [Technologies Used](#technologies-used)
+- [Setup and Installation](#setup-and-installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-<!-- Admin features removed in MVP -->
+## Project Overview
 
-## 🛠️ Tech Stack
+CodeTech is built as a full-stack application with a modern frontend and a robust backend. The platform allows users to:
+
+- Register and log in to their accounts
+- Access interactive quizzes on various technical subjects
+- Track their progress and performance
+- Compete with peers on leaderboards
+- Receive instant feedback on quiz performance
+
+## Frontend
+
+### Structure
+
+The frontend is built using Next.js, a popular React framework. The main components and pages include:
+
+- `app/page.tsx`: The main homepage with subject previews
+- `app/login/page.tsx`: User login page
+- `app/signup/page.tsx`: User registration page
+- `app/dashboard/page.tsx`: User dashboard showing progress
+- `app/leaderboard/page.tsx`: Leaderboard page
+- `app/subject/[id]/page.tsx`: Subject-specific page
+- `app/quiz/[subjectId]/[levelId]/page.tsx`: Quiz page for a specific level
+- `app/quiz/[subjectId]/[levelId]/[quizId]/page.tsx`: Individual quiz page
+
+### Features
+
+- Responsive design with a modern UI
+- User authentication and authorization
+- Interactive quiz interface
+- Progress tracking and visualization
+- Leaderboard functionality
+- Subject-specific learning paths
+
+## Backend
+
+### Structure
+
+The backend is built using FastAPI, a modern web framework for Python. The main components include:
+
+- `backend/main.py`: Main FastAPI application with all endpoints
+- `backend/init_db.py`: Database initialization script
+- `backend/clear_db.py`: Database clearing script
+- `backend/seed_main.py`: Database seeding script
+- `backend/test_api.py`: API testing script
+
+### API Endpoints
+
+The backend provides a comprehensive REST API with the following key endpoints:
+
+- **Authentication**
+  - `POST /signup`: User registration
+  - `POST /login`: User login
+  - `GET /me`: Get current user info
+
+- **Quiz Management**
+  - `GET /quiz/{subject_id}/{level_id}`: Get quiz for a specific subject and level
+  - `POST /quiz/{subject_id}/{level_id}/submit`: Submit quiz answers
+
+- **Progress Tracking**
+  - `GET /user/subjects`: Get user's subjects with progress
+  - `POST /user/subjects/{subject_id}/levels/{level_id}/complete`: Mark a level as completed
+
+- **Leaderboard**
+  - `GET /leaderboard`: Get leaderboard data
+
+- **Admin**
+  - `GET /admin/users`: Get all users with progress
+  - `GET /admin/user/{user_id}/progress`: Get detailed progress for a user
+
+## Technologies Used
 
 ### Frontend
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first CSS framework
-- **Shadcn/ui** - Modern UI components
-- **Lucide React** - Beautiful icons
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Lucide React (icons)
+- Axios (API requests)
 
 ### Backend
-- **FastAPI** - Modern Python web framework
-- **SQLAlchemy** - SQL toolkit and ORM
-- **SQLite** - Lightweight database
-- **JWT** - JSON Web Token authentication
-- **Passlib** - Password hashing
-- **Pydantic** - Data validation
+- FastAPI
+- Python
+- SQLAlchemy (ORM)
+- MySQL (database)
+- Pydantic (data validation)
+- JWT (authentication)
 
-## 📦 Installation
+## Setup and Installation
 
 ### Prerequisites
-- Node.js 18+ 
-- Python 3.8+
-- npm or yarn
 
-### Backend Setup
+- Node.js (v14 or later)
+- Python (v3.8 or later)
+- MySQL database
 
-1. **Navigate to backend directory**:
+### Frontend
+
+1. Navigate to the frontend directory:
    ```bash
-   cd backend
+   cd app
    ```
 
-2. **Install Python dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Start the backend server**:
-   ```bash
-   python main.py
-   ```
-   The server will run on `http://localhost:8000`
-
-### Frontend Setup
-
-1. **Install Node.js dependencies**:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. **Start the development server**:
+3. Start the development server:
    ```bash
    npm run dev
    ```
-   The frontend will run on `http://localhost:3000`
 
-## 🔐 Authentication
+### Backend
 
-### Demo Accounts
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
 
-Use your own account to sign in. Admin role is not part of the MVP.
+2. Create a virtual environment and activate it:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-### User Roles
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-- **Student**: Can take quizzes, view progress, access learning materials
+4. Set up the database:
+   ```bash
+   python init_db.py
+   python seed_main.py
+   ```
 
-## 📚 Available Subjects
+5. Start the FastAPI server:
+   ```bash
+   uvicorn main:app --reload
+   ```
 
-1. **Python Programming** - 5 levels, 50 quizzes
-   - Variables & Data Types
-   - Control Structures
-   - Functions & Modules
-   - Object-Oriented Programming
-   - Advanced Topics
+## Usage
 
-2. **Machine Learning** - 4 levels, 40 quizzes
-   - ML Fundamentals
-   - Supervised Learning
-   - Unsupervised Learning
-   - Deep Learning Basics
+1. Open your browser and navigate to `http://localhost:3000` for the frontend.
+2. Register a new account or log in with an existing one.
+3. Browse available subjects and start taking quizzes.
+4. Track your progress in the dashboard and compete on the leaderboard.
 
-3. **JavaScript** - 6 levels, 30 quizzes
-   - JavaScript Basics
-   - Control Flow
-   - Functions & ES6
-   - DOM & Events
-   - Arrays & Objects
-   - Advanced JavaScript
+## Contributing
 
-4. **C Programming** - 6 levels, 30 quizzes
-   - C Basics
-   - Control Flow
-   - Functions
-   - Pointers & Arrays
-   - Strings & Structures
-   - File I/O & Advanced
-
-## 🎯 How to Use
-
-### For Students
-
-1. **Sign Up/Login**: Use the demo credentials or create a new account
-2. **Browse Subjects**: Explore available learning paths
-3. **Take Quizzes**: Start with level 1 and progress through levels
-4. **Track Progress**: Monitor your completion rate and scores
-5. **View Leaderboard**: See how you rank against other students
-
-<!-- Admin workflow removed in MVP -->
-
-## 🔧 API Endpoints
-
-### Authentication
-- `POST /signup` - Register new user
-- `POST /login` - User login
-- `GET /me` - Get current user info
-
-### Quizzes
-- `GET /quiz/{subject_id}/{level_id}` - Get quiz questions
-- `POST /quiz/{subject_id}/{level_id}/submit` - Submit quiz answers
-
-### User Progress
-- `GET /user/subjects` - Get user's subject progress
-- `GET /user/activity` - Get user's recent activity
-- `GET /user/stats` - Get user statistics
-
-<!-- Admin endpoints removed in MVP -->
-
-### Public
-- `GET /subjects` - Get all subjects
-- `GET /leaderboard` - Get leaderboard data
-- `GET /dashboard-data` - Get dashboard statistics
-
-## 🧪 Testing
-
-Run the API test script to verify all endpoints are working:
-
-```bash
-cd backend
-python test_api.py
-```
-
-## 📁 Project Structure
-
-```
-CodeTech/
-├── app/                    # Next.js frontend pages
-<!-- Admin dashboard removed in MVP -->
-│   ├── dashboard/         # User dashboard
-│   ├── login/            # Login page
-│   ├── quiz/             # Quiz pages
-│   └── subject/          # Subject pages
-├── backend/               # FastAPI backend
-│   ├── main.py           # Main API server
-<!-- Admin user creation script not used in MVP -->
-│   └── test_api.py       # API testing script
-├── components/            # React components
-│   └── ui/               # Shadcn/ui components
-├── lib/                   # Utility functions
-│   └── api.ts            # API client functions
-└── public/               # Static assets
-```
-
-## 🚀 Deployment
-
-### Backend Deployment
-1. Install dependencies: `pip install -r requirements.txt`
-2. Set environment variables for production
-3. Use a production WSGI server like Gunicorn
-4. Deploy to your preferred hosting service
-
-### Frontend Deployment
-1. Build the project: `npm run build`
-2. Deploy the `out` directory to your hosting service
-3. Configure environment variables for production API URL
-
-## 🔒 Security Features
-
-- **JWT Authentication**: Secure token-based authentication
-- **Password Hashing**: Bcrypt password hashing
-<!-- Admin role-based access removed in MVP -->
-- **CORS Protection**: Configured for development and production
-- **Input Validation**: Pydantic models for data validation
-
-## 🎨 UI/UX Features
-
-- **Responsive Design**: Works on desktop, tablet, and mobile
-- **Modern UI**: Clean, professional interface
-- **Progress Visualization**: Charts and progress bars
-- **Interactive Elements**: Hover effects and animations
-- **Accessibility**: ARIA labels and keyboard navigation
-
-## 🤝 Contributing
+We welcome contributions from the community! Please follow these steps:
 
 1. Fork the repository
-2. Create a feature branch
+2. Create a new branch (`git checkout -b feature-branch`)
 3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+4. Commit your changes (`git commit -am 'Add new feature'`)
+5. Push to the branch (`git push origin feature-branch`)
+6. Create a new Pull Request
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License.
-
-## 🆘 Support
-
-If you encounter any issues:
-
-1. Check the console for error messages
-2. Verify the backend server is running
-3. Ensure all dependencies are installed
-4. Check the API test script for endpoint verification
-
-## 🎉 Getting Started
-
-1. Clone the repository
-2. Follow the installation steps above
-3. Start both backend and frontend servers
-4. Login with demo credentials
-5. Start learning!
-
----
-
-**Happy Learning! 🚀** 
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
